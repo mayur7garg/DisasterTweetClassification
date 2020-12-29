@@ -15,12 +15,17 @@ def tokenize_text(text):
     tokens = re.split('[^a-z]+', text)
     return tokens
 
+def clean_text(tokens):
+    text = [wn.lemmatize(word) for word in tokens if not (word in stopwords or str.isspace(word) or len(word)==0)]
+    return text 
+
 with open('Models/kw_oe.pkl', 'rb') as file:
     kw_oe = dill.load(file)
 
 with open('Models/tfidf.pkl', 'rb') as file:
     tfidf_vect = dill.load(file)
-
+    tfidf_vect.analyzer = clean_text
+    
 with open('Models/rf.pkl', 'rb') as file:
     rf = dill.load(file)
 
@@ -32,8 +37,6 @@ def main():
         return(flask.render_template('main.html'))
     
     if flask.request.method == 'POST': 
-        wn = nltk.WordNetLemmatizer()
-        stopwords = nltk.corpus.stopwords.words('english')
         tweet = flask.request.form['tweet'].strip()[:280]
 
         keyword = flask.request.form['keyword'].strip().split()
