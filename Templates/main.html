@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<style>
+    form {
+        margin: auto;
+        width: 50%;
+    }
+
+    .info {
+        margin: auto;
+        width: 50%;
+    }
+
+    .example {
+        margin: 5px 0px;
+    }
+
+    .result {
+        margin: auto;
+        width: 50%;
+        border: 1px solid #ccc;
+    }
+
+    .input-box {
+        width: 100%;
+    }
+
+    .submit-btn {
+        font-size: 18px;
+        padding: 3px 20px;
+    }
+</style>
+
+<head>
+    <title>Disaster Tweet classification</title>
+</head>
+
+<body>
+    <h2 align="center">Disaster tweet classification using Random Forest</h2>
+    <div class="info">
+        <p><b>Tweet</b></p>
+        <ul>
+            <li>Any tweet of upto 280 characters which may or may not contain information about a disaster.</li>
+            <li>Leading and trailing whitespace will be trimmed.</li>
+            <li>Required</li>
+        </ul>
+        <p><b>Keyword</b></p>
+        <ul>
+            <li>Any single word within the tweet or related to it that is thought to contain information about a
+                disaster.</li>
+            <li>In case of multiple words, only the first will be considered.</li>
+            <li>Leading and trailing whitespace will be trimmed.</li>
+            <li>Optional</li>
+        </ul>
+        <p><b>Examples</b></p>
+        <ol>
+            <li>
+                <ul>
+                    <li><b>Tweet: </b>
+                        <p class="example">George Njenga the hero saved his burning friend from a razing wildfire
+                            http://t.co/Ywkk26arAG</p>
+                    </li>
+                    <li><b>Keyword: </b>
+                        <p class="example">razed</p>
+                    </li>
+                </ul>
+            </li>
+            <br>
+            <li>
+                <ul>
+                    <li><b>Tweet: </b>
+                        <p class="example">I was on my way to Gary but all the Chicago entrances was closed due to a
+                            bridge collapsed
+                            ?????? I hope they let us through tomorrow</p>
+                    </li>
+                    <li><b>Keyword: </b>
+                        <p class="example">collapsed</p>
+                    </li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+    <form action="{{ url_for('main') }}" method="POST">
+        <fieldset>
+            <legend>Input values:</legend>
+            <p>Tweet:</p>
+            <input name="tweet" class="input-box" required maxlength="280">
+            <br>
+            <br>
+            <p>Keyword:</p>
+            <input name="keyword">
+            <br>
+            <br>
+            <input type="submit" value="Submit" class="submit-btn">
+        </fieldset>
+    </form>
+
+    <br>
+
+    {% if result %}
+    <div class="result" align="center">
+        <br>
+        <b>Tweet</b>:
+        <br>
+        {{ tweet }}
+        <br>
+        <br>
+        <br>
+        <b>Prediction</b>:
+        <p>Is this a tweet related to a disaster?</p>
+        <p style="font-size:24px">{{ result }}</p>
+    </div>
+    {% endif %}
+
+    <div align="center">
+        <p>Created by: Mayur Kr. Garg</p>
+        <p><a href="https://github.com/mayur7garg/DisasterTweetClassification">GitHub</a></p>
+        <p><a href="https://www.linkedin.com/in/mayur-garg-6281b4138/">LinkedIn</a></p>
+    </div>
+</body>
+
+</html>
