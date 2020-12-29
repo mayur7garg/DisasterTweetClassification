@@ -32,6 +32,8 @@ def main():
         return(flask.render_template('main.html'))
     
     if flask.request.method == 'POST': 
+        wn = nltk.WordNetLemmatizer()
+        stopwords = nltk.corpus.stopwords.words('english')
         tweet = flask.request.form['tweet'].strip()[:280]
 
         keyword = flask.request.form['keyword'].strip().split()
