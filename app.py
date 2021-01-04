@@ -39,11 +39,9 @@ def main():
     if flask.request.method == 'POST': 
         tweet = flask.request.form['tweet'].strip()[:280]
 
-        keyword = flask.request.form['keyword'].strip().split()
-        if len(keyword) < 1 or keyword[0] not in kw_oe.categories_[0]:
+        keyword = flask.request.form['keyword'].strip()
+        if len(keyword) < 1 or keyword not in kw_oe.categories_[0]:
             keyword = 'NaN'
-        else:
-            keyword = keyword[0]
 
         kw_id = kw_oe.transform([[keyword]])[0][0]
         hashtag_count = len(re.findall(hashtag, tweet))
